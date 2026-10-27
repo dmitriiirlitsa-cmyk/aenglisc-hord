@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* Тёмная тема включается классом .dark на <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Семантические цвета: компоненты используют только их, поэтому тема меняется в одном месте */
+/* Светлая тема — белый, мягкий графит (кнопки), тёмный текст и золото (логотип, заголовки, детали) */
+@theme {
+  --color-bg: #faf9f6;
+  --color-surface: #ffffff;
+  --color-subtle: #f3f0ea;
+  --color-line: #e6e0d6;
+  --color-line-strong: #d2cabd;
+  --color-ink: #151311;
+  --color-body: #2a2622;
+  --color-muted: #6d655b;
+  --color-faint: #a1988b;
+  --color-accent: #3d3833;
+  --color-accent-hover: #2b2723;
+  --color-accent-soft: #f3f0ea;
+  --color-accent-soft-hover: #e9e4da;
+  --color-accent-line: #d2cabd;
+  --color-accent-ink: #3d3833;
+  --color-on-accent: #ffffff;
+  --color-bubble: #efebe4;
+  --color-on-bubble: #151311;
+  --color-gold: #94701f;
+  --color-gold-line: #e2cf9c;
+  --color-gold-soft: #faf3e0;
+}
+
+/* Тёмная тема — графитовый фон, светлые кнопки, золото в логотипе, заголовках и деталях */
+.dark {
+  color-scheme: dark;
+  --color-bg: #161616;
+  --color-surface: #1f1f1f;
+  --color-subtle: #2a2a2a;
+  --color-line: #2e2e2e;
+  --color-line-strong: #3d3d3d;
+  --color-ink: #ececec;
+  --color-body: #d4d4d4;
+  --color-muted: #9b9b9b;
+  --color-faint: #6b6b6b;
+  --color-accent: #e8e8e8;
+  --color-accent-hover: #ffffff;
+  --color-accent-soft: #262626;
+  --color-accent-soft-hover: #333333;
+  --color-accent-line: #3d3d3d;
+  --color-accent-ink: #d4d4d4;
+  --color-on-accent: #161616;
+  --color-bubble: #2f2f2f;
+  --color-on-bubble: #ececec;
+  --color-gold: #c9a24a;
+  --color-gold-line: #4d4128;
+  --color-gold-soft: #262118;
+}
+
+/* Кофейная тема — приглушённый тёмно-коричневый фон, кремовые кнопки и золото; на <html> вместе с .dark */
+.dark.coffee {
+  --color-bg: #1a1714;
+  --color-surface: #221f1b;
+  --color-subtle: #2b2722;
+  --color-line: #34302a;
+  --color-line-strong: #433d36;
+  --color-ink: #e8e2d8;
+  --color-body: #d6cfc4;
+  --color-muted: #9e968a;
+  --color-faint: #6f685e;
+  --color-accent: #e8e2d8;
+  --color-accent-hover: #f5efe6;
+  --color-accent-soft: #2b2722;
+  --color-accent-soft-hover: #36312a;
+  --color-accent-line: #4a433a;
+  --color-accent-ink: #d6cfc4;
+  --color-on-accent: #1a1714;
+  --color-bubble: #322d27;
+  --color-on-bubble: #e8e2d8;
+  --color-gold: #d1ab55;
+  --color-gold-line: #574a2e;
+  --color-gold-soft: #2e271c;
+}
+
+/* Своя версия логотипа для каждой темы */
+.logo-light {
+  display: block;
+}
+.logo-dark,
+.logo-coffee,
+.dark .logo-light {
+  display: none;
+}
+.dark:not(.coffee) .logo-dark,
+.coffee .logo-coffee {
+  display: block;
+}
+
+body {
+  @apply bg-bg text-body antialiased;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Оформление Markdown внутри карточек словарных статей */
+.entry h1 {
+  @apply text-2xl font-bold text-ink mb-1;
+}
+.entry h2 {
+  @apply mt-5 mb-2 text-xs font-semibold uppercase tracking-wider text-gold border-b border-gold-line pb-1;
+}
+.entry h3 {
+  @apply mt-4 mb-1 font-semibold text-ink;
+}
+.entry p {
+  @apply my-2 leading-relaxed;
+}
+.entry ul {
+  @apply my-2 space-y-1.5 pl-1;
+}
+.entry ol {
+  @apply my-2 space-y-1.5 list-decimal pl-5;
+}
+.entry ul > li {
+  @apply relative pl-5;
+}
+.entry ul > li::before {
+  content: "";
+  @apply absolute left-1 top-[0.6em] h-1.5 w-1.5 rounded-full bg-gold-line;
+}
+/* В «рыхлых» списках Markdown оборачивает текст в <p> — держим кнопку озвучки в той же строке */
+.entry li > p:last-of-type {
+  @apply inline;
+}
+.entry strong {
+  @apply font-semibold text-ink;
+}
+.entry em {
+  @apply text-muted;
+}
+.entry code {
+  @apply rounded bg-subtle px-1 py-0.5 text-sm;
+}
+.entry table {
+  @apply my-3 w-full border-collapse text-sm;
+}
+.entry .table-wrap {
+  @apply overflow-x-auto;
+}
+.entry th {
+  @apply bg-subtle px-3 py-2 text-left font-semibold text-ink;
+}
+.entry td {
+  @apply border-t border-line px-3 py-2 align-top;
+}
+.entry blockquote {
+  @apply my-2 border-l-4 border-gold-line bg-gold-soft px-3 py-1;
+}
+.entry hr {
+  @apply my-4 border-line;
+}
