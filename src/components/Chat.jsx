@@ -80,7 +80,7 @@ export default function Chat({ messages, setMessages, isSaved, onSave }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <div className="mx-auto max-w-3xl space-y-4 px-4 py-6">
           {messages.length === 0 && (
             <div className="rounded-2xl border border-dashed border-line-strong bg-surface p-8 text-center">
@@ -144,8 +144,9 @@ export default function Chat({ messages, setMessages, isSaved, onSave }) {
         </div>
       </div>
 
-      <div className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-3xl px-4 py-3">
+      <div className="shrink-0 border-t border-line bg-surface">
+        {/* Снизу учитываем «домашнюю полоску» iPhone */}
+        <div className="mx-auto max-w-3xl px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           {lastIsAssistant && !loading && (
             <div className="mb-2 flex flex-wrap gap-2">
               {QUICK_ACTIONS.map((a) => (

@@ -1,0 +1,52 @@
+# Админка Decap CMS: https://aenglisc-hord.netlify.app/admin/
+# Вход через GitHub (OAuth-провайдер Netlify). Сохранённые темы попадают в репозиторий,
+# после чего Netlify сам пересобирает сайт.
+backend:
+  name: github
+  repo: dmitriiirlitsa-cmyk/aenglisc-hord
+  branch: main
+  commit_messages:
+    create: "Грамматика: новая тема «{{slug}}»"
+    update: "Грамматика: правка «{{slug}}»"
+    delete: "Грамматика: удалена тема «{{slug}}»"
+    uploadMedia: "Загружен файл {{path}}"
+    deleteMedia: "Удалён файл {{path}}"
+
+# Для работы на компьютере без GitHub: npm run cms, затем http://localhost:3001/admin/
+local_backend: true
+
+locale: ru
+site_url: https://aenglisc-hord.netlify.app
+display_url: https://aenglisc-hord.netlify.app
+logo_url: /logo/light-emblem.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: grammar
+    label: Грамматика
+    label_singular: тему
+    description: Темы раздела «Грамматика». Порядок в списке на сайте задаётся полем «Порядок».
+    folder: content/grammar
+    create: true
+    extension: md
+    format: frontmatter
+    # Имя файла из даты и времени — так оно не зависит от русских букв в названии
+    slug: "{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}"
+    summary: "{{order}}. {{title}} · {{level}}"
+    sortable_fields: ["order", "title", "level"]
+    fields:
+      - { label: "Название", name: "title", widget: "string" }
+      - label: "Уровень"
+        name: "level"
+        widget: "select"
+        options: ["A1", "A2", "B1", "B2", "C1", "C2"]
+        default: "A2"
+      - { label: "Порядок в списке", name: "order", widget: "number", value_type: "int", default: 10, hint: "Меньше число — выше в списке" }
+      - { label: "Кратко (1–2 предложения)", name: "summary", widget: "text", required: false }
+      - { label: "Черновик — не показывать на сайте", name: "draft", widget: "boolean", default: false, required: false }
+      - label: "Текст темы"
+        name: "body"
+        widget: "markdown"
+        hint: "Примеры пишите строкой «English sentence. — Перевод» в списке — на сайте у них появится кнопка озвучки"

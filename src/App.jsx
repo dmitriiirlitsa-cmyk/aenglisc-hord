@@ -6,6 +6,7 @@ import NewChatButton from './components/NewChatButton.jsx';
 import Logo from './components/Logo.jsx';
 import SideMenu from './components/SideMenu.jsx';
 import Grammar from './components/Grammar.jsx';
+import { grammarTopics } from './lib/grammar.js';
 import {
   BookIcon,
   ChatIcon,
@@ -51,7 +52,7 @@ export default function App() {
   const sections = [
     { id: 'chat', label: 'Чат', Icon: ChatIcon },
     { id: 'dict', label: 'Мой словарь', Icon: BookIcon, badge: words.length || null },
-    { id: 'grammar', label: 'Грамматика', Icon: GrammarIcon, badge: 'скоро' },
+    { id: 'grammar', label: 'Грамматика', Icon: GrammarIcon, badge: grammarTopics.length || 'скоро' },
   ];
 
   const themeSwitcher = (
@@ -83,7 +84,8 @@ export default function App() {
   );
 
   return (
-    <div className="flex h-screen flex-col">
+    // Каркас приклеен к видимой области экрана: шапка и поле ввода стоят на месте, прокручивается только содержимое
+    <div className="fixed inset-0 flex flex-col">
       <header className="border-b border-line bg-surface">
         <div className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-3 sm:gap-3">
           <button

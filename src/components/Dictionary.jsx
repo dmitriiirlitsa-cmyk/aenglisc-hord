@@ -20,7 +20,7 @@ export default function Dictionary({ words, onRemove }) {
   }, [words, query, level]);
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full overflow-y-auto overscroll-contain">
       <div className="mx-auto max-w-3xl px-4 py-6">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row">
           <input

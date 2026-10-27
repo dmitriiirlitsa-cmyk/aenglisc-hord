@@ -23,6 +23,16 @@
 
 Продакшен: `npm run build`, затем `npm start` — Express отдаёт собранный фронтенд на http://localhost:3001.
 
+## Админка «Грамматики» (Decap CMS)
+
+Темы раздела «Грамматика» — Markdown-файлы в `content/grammar/`. Их удобно писать через админку: https://aenglisc-hord.netlify.app/admin/
+
+- Вход через GitHub. Нужна разовая настройка: OAuth-приложение на GitHub (callback `https://api.netlify.com/auth/done`) и провайдер GitHub в Netlify → Access & security → OAuth.
+- «Опубликовать» сохраняет тему в репозиторий, Netlify пересобирает сайт примерно за минуту.
+- Поля темы: название, уровень, порядок в списке, краткое описание, черновик (не показывается на сайте), текст.
+- Настройки админки: `public/admin/config.yml`.
+- Локально, без GitHub: `npm run cms` и `npm start` (после `npm run build`), затем http://localhost:3001/admin/
+
 ## Публикация (Netlify)
 
 1. Загрузите проект на GitHub (без `.env`, `node_modules`, `dist`).
@@ -58,6 +68,8 @@ server/chat.js        общая логика Gemini: история, fallback �
 server/index.js       локальный сервер Express (+ лимит запросов по IP)
 server/prompt.js      системный промпт преподавателя
 netlify/functions/    функция /api/chat для Netlify
+public/admin/         админка Decap CMS и её настройки
+content/grammar/      темы «Грамматики» (пишутся через админку)
 src/App.jsx           вкладки «Чат» / «Мой словарь», localStorage
 src/components/       Chat, EntryCard (карточка статьи), Dictionary, SpeakButton
 src/lib/              разбор метаданных, озвучка (speechSynthesis en-US), хранилище
