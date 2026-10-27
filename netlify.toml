@@ -1,0 +1,12 @@
+# Публикация на Netlify: фронтенд собирается Vite в dist, запросы /api/chat обрабатывает
+# функция netlify/functions/chat.mjs. Ключ GEMINI_API_KEY задаётся в настройках сайта на Netlify.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
