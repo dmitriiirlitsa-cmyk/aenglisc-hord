@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { GrammarIcon } from './Icons.jsx';
 import { LevelBadge, Markdown } from './EntryCard.jsx';
-import { grammarTopics } from '../lib/grammar.js';
+import { useGrammarTopics } from '../lib/grammar.js';
 
 // Раздел «Грамматика»: список тем из админки и страница выбранной темы
 export default function Grammar() {
+  const grammarTopics = useGrammarTopics();
   const [openId, setOpenId] = useState(null);
   const scrollRef = useRef(null);
   const topic = grammarTopics.find((t) => t.id === openId);

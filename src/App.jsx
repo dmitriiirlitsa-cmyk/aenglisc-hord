@@ -6,7 +6,7 @@ import NewChatButton from './components/NewChatButton.jsx';
 import Logo from './components/Logo.jsx';
 import SideMenu from './components/SideMenu.jsx';
 import Grammar from './components/Grammar.jsx';
-import { grammarTopics } from './lib/grammar.js';
+import { useGrammarTopics } from './lib/grammar.js';
 import {
   BookIcon,
   ChatIcon,
@@ -24,6 +24,7 @@ const THEME_ICONS = { light: SunIcon, dark: MoonIcon, coffee: CoffeeIcon, system
 export default function App() {
   const [tab, setTab] = useState('chat');
   const [menuOpen, setMenuOpen] = useState(false);
+  const grammarTopics = useGrammarTopics();
   const [messages, setMessages] = useState(loadChat);
   const [words, setWords] = useState(loadWords);
   const [theme, setTheme] = useState(loadTheme);
@@ -86,7 +87,8 @@ export default function App() {
   return (
     // Каркас приклеен к видимой области экрана: шапка и поле ввода стоят на месте, прокручивается только содержимое
     <div className="fixed inset-0 flex flex-col">
-      <header className="border-b border-line bg-surface">
+      {/* Отступ сверху — под строку состояния iPhone, когда сайт открыт с экрана «Домой» */}
+      <header className="shrink-0 border-b border-line bg-surface pt-[env(safe-area-inset-top)]">
         <div className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-3 sm:gap-3">
           <button
             type="button"

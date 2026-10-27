@@ -3,6 +3,11 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  # Сборка отменяется (и не тратит кредиты), если в коммите изменились только темы «Грамматики»
+  # (content/) или картинки из админки (public/uploads/) — сайт читает их прямо с GitHub.
+  # Ручной «Trigger deploy» того же коммита (CACHED_COMMIT_REF = COMMIT_REF) собирается всегда;
+  # при любой ошибке git команда завершается не нулём — тоже сборка.
+  ignore = "test \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" && git diff --quiet \"$CACHED_COMMIT_REF\" \"$COMMIT_REF\" -- . ':(exclude)content' ':(exclude)public/uploads'"
 
 [build.environment]
   NODE_VERSION = "22"

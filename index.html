@@ -2,10 +2,17 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- interactive-widget: при открытой клавиатуре страница сжимается, и поле ввода остаётся над клавиатурой -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
     <title>ÆNGLISC HORD</title>
     <meta name="description" content="Онлайн-словарь английского" />
     <link rel="icon" type="image/png" href="/logo/favicon.png" />
+    <!-- Иконка и название для экрана «Домой» (iPhone) и установки на Android -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="Ænglisc Hord" />
+    <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)" />
     <!-- Применяем тему до отрисовки, чтобы не было вспышки светлого фона -->
     <script>
       try {

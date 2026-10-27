@@ -160,6 +160,10 @@ body {
 .entry blockquote {
   @apply my-2 border-l-4 border-gold-line bg-gold-soft px-3 py-1;
 }
+/* Картинки из админки: не шире карточки, на телефоне ужимаются */
+.entry img {
+  @apply my-3 block h-auto max-w-full rounded-lg border border-line;
+}
 .entry hr {
   @apply my-4 border-line;
 }
