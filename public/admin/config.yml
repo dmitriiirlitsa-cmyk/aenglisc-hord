@@ -1,6 +1,7 @@
-# Админка Decap CMS: https://aenglisc-hord.netlify.app/admin/
-# Вход через GitHub (OAuth-провайдер Netlify). Сохранённые темы попадают в репозиторий,
-# после чего Netlify сам пересобирает сайт.
+# Админка Decap CMS: <адрес сайта>/admin/
+# Вход через GitHub. На Netlify посредником входа служит api.netlify.com (по умолчанию),
+# на Cloudflare воркер сам дописывает сюда base_url и auth_endpoint (см. worker/index.js).
+# Сохранённые темы попадают в репозиторий; сайт читает их прямо с GitHub, без пересборки.
 backend:
   name: github
   repo: dmitriiirlitsa-cmyk/aenglisc-hord

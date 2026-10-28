@@ -34,6 +34,18 @@
 - Настройки админки: `public/admin/config.yml`.
 - Локально, без GitHub: `npm run cms` и `npm start` (после `npm run build`), затем http://localhost:3001/admin/
 
+## Публикация (Cloudflare Workers)
+
+Сайт раздаётся как статика из `dist`, а `/api/*` обрабатывает воркер `worker/index.js` (настройки — `wrangler.jsonc`).
+
+1. https://dash.cloudflare.com → **Workers & Pages → Create application** → подключить репозиторий GitHub.
+2. Build command `npm run build`, Deploy command `npx wrangler deploy`.
+3. После первой публикации: **Settings → Variables and Secrets** → секреты `GEMINI_API_KEY`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`.
+4. В OAuth-приложении GitHub добавить Redirect URI `https://<адрес воркера>/api/callback`.
+5. Необязательно: **Settings → Build → Build watch paths** — исключить `content/**` и `public/uploads/**`.
+
+Локально в режиме Cloudflare: секреты в `.dev.vars` (как `.env`, не загружается на GitHub), затем `npm run build` и `npx wrangler dev`.
+
 ## Публикация (Netlify)
 
 1. Загрузите проект на GitHub (без `.env`, `node_modules`, `dist`).
@@ -69,6 +81,8 @@ server/chat.js        общая логика Gemini: история, fallback �
 server/index.js       локальный сервер Express (+ лимит запросов по IP)
 server/prompt.js      системный промпт преподавателя
 netlify/functions/    функция /api/chat для Netlify
+worker/               Cloudflare Worker: /api/chat, вход в админку через GitHub
+wrangler.jsonc        настройки Cloudflare Workers
 public/admin/         админка Decap CMS и её настройки
 content/grammar/      темы «Грамматики» (пишутся через админку)
 src/App.jsx           вкладки «Чат» / «Мой словарь», localStorage

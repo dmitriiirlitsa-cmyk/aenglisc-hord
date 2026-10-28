@@ -1,0 +1,20 @@
+// Cloudflare Workers: собранный сайт (dist) раздаётся как статика, а /api/* обрабатывает worker/index.js.
+// Секреты GEMINI_API_KEY, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET задаются в панели Cloudflare
+// (Worker → Settings → Variables and Secrets) или командой `npx wrangler secret put ИМЯ`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aenglisc-hord",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-09-15",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Адреса без файла (например, /admin без слэша на конце) отдаются как одностраничное приложение
+    "not_found_handling": "single-page-application",
+    // /api/* и настройки админки сначала попадают в воркер, остальное — сразу статикой (не тратит лимит запросов)
+    "run_worker_first": ["/api/*", "/admin/config.yml"]
+  },
+  // Переменные, заданные в панели Cloudflare, не стираются при каждой публикации
+  "keep_vars": true,
+  "observability": { "enabled": true }
+}
