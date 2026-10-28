@@ -60,7 +60,7 @@
 
 Ответ: `{ "text": "...", "model": "gemini-3.1-flash-lite" }`. История (до 30 последних сообщений) передаётся в Gemini как multi-turn `contents`, поэтому уточнения вроде «Compare with abandon» понимаются в контексте.
 
-Если основная модель недоступна (неверное имя, квота, ошибка), сервер автоматически пробует fallback. Названия моделей можно переопределить через `GEMINI_MODEL` и `GEMINI_FALLBACK_MODEL` в `.env`.
+Модели перебираются по цепочке (`server/chat.js`): `gemini-3.1-flash-lite` → `gemini-3.5-flash` → `gemini-3-flash-preview` → `gemini-flash-latest` → `gemini-3.5-flash-lite` → `gemini-flash-lite-latest`. При перегрузке (503), лимите (429) или недоступности модели сервер сразу берёт следующую; перегруженные пробуются второй раз после паузы. Всю цепочку можно заменить переменной `GEMINI_MODELS="модель1,модель2"`, а `GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` ставят модели в её начало.
 
 ## Структура
 
